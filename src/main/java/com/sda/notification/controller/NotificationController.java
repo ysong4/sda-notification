@@ -22,12 +22,12 @@ public class NotificationController {
     public void receiveNotification(
             @Valid @RequestBody NotificationDto notification
     ) {
-        log.info("Received a new notification request to {}", notification.getReceiver());
+        log.info("Received a new notification request to {}", notification.getReceiverId());
 
         // TODO:
         // If user is online, send through websocket
         // If user is offline, store to DB
 
-        messagingTemplate.convertAndSend("/topic/" + notification.getReceiver(), notification);
+        messagingTemplate.convertAndSend("/topic/" + notification.getReceiverId(), notification);
     }
 }

@@ -1,5 +1,6 @@
 package com.sda.notification.controller;
 
+import com.sda.notification.dto.UserConnectedDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -14,13 +15,13 @@ public class ConnectionController {
 
     @MessageMapping("/user-connected")
     public void addUser(
-            @Payload ChatMessage chatMessage,
+            @Payload UserConnectedDto userConnectedDto,
             SimpMessageHeaderAccessor headerAccessor
     ) {
         // Add username in web socket session
-        headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
+        headerAccessor.getSessionAttributes().put("userId", userConnectedDto.getSenderId());
 
-        log.info("user connected: {}", chatMessage.getSender());
+        log.info("user connected: {}", userConnectedDto.getSenderId());
 
         // TODO: subscribe to EventManager
     }
