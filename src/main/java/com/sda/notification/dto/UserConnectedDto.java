@@ -6,7 +6,6 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 public class UserConnectedDto {
-    private String senderId;
+    private int senderId;
 }

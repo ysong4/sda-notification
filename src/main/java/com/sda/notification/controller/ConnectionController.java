@@ -1,6 +1,7 @@
 package com.sda.notification.controller;
 
 import com.sda.notification.dto.UserConnectedDto;
+import com.sda.notification.service.EventManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Controller;
 @RequiredArgsConstructor
 public class ConnectionController {
 
+    private final EventManager eventManager;
+
     @MessageMapping("/user-connected")
     public void addUser(
             @Payload UserConnectedDto userConnectedDto,
@@ -23,6 +26,7 @@ public class ConnectionController {
 
         log.info("user connected: {}", userConnectedDto.getSenderId());
 
-        // TODO: subscribe to EventManager
+        // subscribe to EventManager
+        eventManager.subscribe(userConnectedDto.getSenderId());
     }
 }

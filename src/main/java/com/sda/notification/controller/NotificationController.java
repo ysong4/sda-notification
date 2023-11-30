@@ -1,6 +1,7 @@
 package com.sda.notification.controller;
 
 import com.sda.notification.dto.NotificationDto;
+import com.sda.notification.service.EventManager;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class NotificationController {
 
-    private final SimpMessageSendingOperations messagingTemplate;
+    private final EventManager eventManager;
 
     @PostMapping("")
     public void receiveNotification(
@@ -24,10 +25,6 @@ public class NotificationController {
     ) {
         log.info("Received a new notification request to {}", notification.getReceiverId());
 
-        // TODO:
-        // If user is online, send through websocket
-        // If user is offline, store to DB
-
-        messagingTemplate.convertAndSend("/topic/" + notification.getReceiverId(), notification);
+        eventManager.notify(notification.getReceiverId(), notification);
     }
 }

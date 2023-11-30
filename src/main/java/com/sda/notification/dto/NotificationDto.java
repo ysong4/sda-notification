@@ -16,9 +16,9 @@ public class NotificationDto {
     @NotBlank(message = "content is blank")
     private String content;
 
-    @NotBlank(message = "receiverId is blank")
-    private String receiverId;
+    @NotNull(message = "receiverId is blank")
+    private int receiverId;
 
-    @NotBlank(message = "senderId is blank")
-    private String senderId;
+    @NotNull(message = "senderId is blank")
+    private int senderId;
 }
