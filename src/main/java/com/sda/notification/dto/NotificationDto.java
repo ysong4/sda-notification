@@ -1,6 +1,5 @@
 package com.sda.notification.dto;
 
-import com.sda.notification.controller.NotificationType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;

@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  notification-db:
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: local-db
+    ports:
+      - "3308:3306"
+    volumes:
+      - ./local-notification-db-mysql-data:/var/lib/mysql
