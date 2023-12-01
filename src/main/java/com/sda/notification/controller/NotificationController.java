@@ -1,15 +1,14 @@
 package com.sda.notification.controller;
 
 import com.sda.notification.dto.NotificationDto;
+import com.sda.notification.model.NotificationStatus;
 import com.sda.notification.service.EventManager;
+import com.sda.notification.service.NotificationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.messaging.simp.SimpMessageSendingOperations;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/notifications")
@@ -19,12 +18,42 @@ public class NotificationController {
 
     private final EventManager eventManager;
 
+    private final NotificationService notificationService;
+
     @PostMapping("")
-    public void receiveNotification(
+    public ResponseEntity<?> receiveNotification(
             @Valid @RequestBody NotificationDto notification
     ) {
         log.info("Received a new notification request to {}", notification.getReceiverId());
 
         eventManager.notify(notification.getReceiverId(), notification);
+
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("")
+    public ResponseEntity<?> getAllNotifications(@RequestParam(required = false) Integer receiverId, @RequestParam(required = false) NotificationStatus status) {
+        if (receiverId == null) {
+            if (status == NotificationStatus.CREATED) {
+                return ResponseEntity.ok(notificationService.getAllCreated());
+            } else {
+                return ResponseEntity.ok(notificationService.getAll());
+            }
+        } else {
+            if (status == NotificationStatus.CREATED) {
+                return ResponseEntity.ok(notificationService.getAllCreatedByReceiverId(receiverId));
+            } else {
+                return ResponseEntity.ok(notificationService.getAllByReceiverId(receiverId));
+            }
+        }
+    }
+
+    @PatchMapping("/{notificationId}")
+    public ResponseEntity<?> updateNotificationStatusById(@PathVariable Integer notificationId) {
+        log.info("Fetch notifications by receiverId");
+
+        notificationService.updateStatusById(notificationId, NotificationStatus.VIEWED);
+
+        return ResponseEntity.ok().build();
     }
 }

@@ -1,7 +1,21 @@
 package com.sda.notification.service;
 
-import org.springframework.stereotype.Service;
+import com.sda.notification.dto.NotificationDto;
+import com.sda.notification.model.Notification;
+import com.sda.notification.model.NotificationStatus;
 
-@Service
-public class NotificationService {
+import java.util.List;
+
+public interface NotificationService {
+    public void create(NotificationDto notificationDto);
+
+    public List<Notification> getAll();
+
+    public List<Notification> getAllByReceiverId(int receiverId);
+
+    public List<Notification> getAllCreated();
+
+    public List<Notification> getAllCreatedByReceiverId(int receiverId);
+
+    public void updateStatusById(int notificationId, NotificationStatus status);
 }

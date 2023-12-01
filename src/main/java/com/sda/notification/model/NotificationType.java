@@ -1,4 +1,4 @@
-package com.sda.notification.dto;
+package com.sda.notification.model;
 
 public enum NotificationType {
     CHAT,

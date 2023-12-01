@@ -43,8 +43,9 @@ public class EventManager {
         if (listeners.containsKey(receiverId)) {
             listeners.get(receiverId).send(notificationDto);
         } else {
-            // TODO: user is offline, store to DB
             log.info("user is offline, let's store it to DB!");
+
+            notificationService.create(notificationDto);
         }
     }
 }
