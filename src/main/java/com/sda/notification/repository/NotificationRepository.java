@@ -10,7 +10,7 @@ import java.util.List;
 @Mapper
 @Repository
 public interface NotificationRepository {
-    @Select("SELECT * FROM notifications")
+    @Select("SELECT * FROM notifications ORDER BY created_at DESC")
     public List<Notification> findAll();
 
     @Select("SELECT * FROM notifications WHERE receiver_id = #{receiverId}")
@@ -22,7 +22,8 @@ public interface NotificationRepository {
     @Select("SELECT * FROM notifications WHERE receiver_id = #{receiverId} AND status = 'CREATED'")
     public List<Notification> findAllCreatedByReceiverId(long receiverId);
 
-    @Insert("INSERT INTO notifications (type, content, sender_id, receiver_id, status) VALUES (#{type}, #{content}, #{senderId}, #{receiverId}, #{status})")
+    @Insert("INSERT INTO notifications (type, content, sender_id, receiver_id, status, created_at) " +
+            "VALUES (#{type}, #{content}, #{senderId}, #{receiverId}, #{status}, #{createdAt})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     public void insert(Notification notification);
 

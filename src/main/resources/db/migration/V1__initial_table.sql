@@ -5,5 +5,6 @@ CREATE TABLE `notifications` (
     `sender_id` INT NOT NULL,
     `receiver_id` INT NOT NULL,
     `status` VARCHAR(64) NOT NULL DEFAULT 'CREATED',
+    `created_at` datetime DEFAULT NULL,
     PRIMARY KEY (`id`)
 );

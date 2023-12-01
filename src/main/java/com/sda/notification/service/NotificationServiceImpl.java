@@ -7,6 +7,7 @@ import com.sda.notification.repository.NotificationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Service
@@ -22,6 +23,7 @@ public class NotificationServiceImpl implements NotificationService {
                 .content(dto.getContent())
                 .senderId(dto.getSenderId())
                 .receiverId(dto.getReceiverId())
+                .createdAt(new Timestamp(System.currentTimeMillis()))
                 .build();
 
         notificationRepository.insert(notification);
