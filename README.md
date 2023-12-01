@@ -5,6 +5,27 @@ PORT=8082
 SWAGGER_URL="http://localhost:8082/swagger-ui/index.html"
 ```
 
+## How to run?
+
+```bash
+cd ./notification-mysql-local
+
+docker-compose up -d
+```
+
+## How to clean database?
+
+```bash
+# Delete the entire local MySQL instance
+cd ./notification-mysql-local
+
+docker-compose down
+
+rm -rf local-notification-db-mysql-data
+
+# Then apply the steps in `How to run?`
+```
+
 ## References
 
 Spring Boot & WebSocket:
