@@ -48,11 +48,12 @@ public class NotificationController {
         }
     }
 
-    @PatchMapping("/{notificationId}")
-    public ResponseEntity<?> updateNotificationStatusById(@PathVariable Integer notificationId) {
+    @PatchMapping("")
+    public ResponseEntity<?> updateNotificationStatusById(
+            @RequestParam Integer senderId, @RequestParam Integer receiverId) {
         log.info("Fetch notifications by receiverId");
 
-        notificationService.updateStatusById(notificationId, NotificationStatus.VIEWED);
+        notificationService.updateStatusByChat(senderId, receiverId, NotificationStatus.VIEWED);
 
         return ResponseEntity.ok().build();
     }

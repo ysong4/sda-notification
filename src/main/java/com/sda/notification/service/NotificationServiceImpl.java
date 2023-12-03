@@ -45,7 +45,7 @@ public class NotificationServiceImpl implements NotificationService {
         return notificationRepository.findAllCreatedByReceiverId(receiverId);
     }
 
-    public void updateStatusById(int notificationId, NotificationStatus status) {
-        notificationRepository.updateStatusById(notificationId, status);
+    public void updateStatusByChat(int senderId, int receiverId, NotificationStatus status) {
+        notificationRepository.updateStatusById(senderId, receiverId, status);
     }
 }

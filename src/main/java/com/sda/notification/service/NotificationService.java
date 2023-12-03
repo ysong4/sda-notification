@@ -17,5 +17,5 @@ public interface NotificationService {
 
     public List<Notification> getAllCreatedByReceiverId(int receiverId);
 
-    public void updateStatusById(int notificationId, NotificationStatus status);
+    public void updateStatusByChat(int senderId, int receiverId, NotificationStatus status);
 }

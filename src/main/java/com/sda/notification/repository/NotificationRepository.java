@@ -27,6 +27,6 @@ public interface NotificationRepository {
     @Options(useGeneratedKeys = true, keyProperty = "id")
     public void insert(Notification notification);
 
-    @Update("UPDATE notifications SET status = #{status} WHERE id = #{notificationId}")
-    public void updateStatusById(long notificationId, NotificationStatus status);
+    @Update("UPDATE notifications SET status = #{status} WHERE receiver_id = #{receiverId} AND sender_id = #{senderId}")
+    public void updateStatusById(long senderId, long receiverId, NotificationStatus status);
 }
