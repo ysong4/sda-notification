@@ -13,13 +13,13 @@ public interface NotificationRepository {
     @Select("SELECT * FROM notifications ORDER BY created_at DESC")
     public List<Notification> findAll();
 
-    @Select("SELECT * FROM notifications WHERE receiver_id = #{receiverId}")
+    @Select("SELECT * FROM notifications WHERE receiver_id = #{receiverId} ORDER BY created_at DESC")
     public List<Notification> findAllByReceiverId(long receiverId);
 
-    @Select("SELECT * FROM notifications WHERE status = 'CREATED'")
+    @Select("SELECT * FROM notifications WHERE status = 'CREATED' ORDER BY created_at DESC")
     public List<Notification> findAllCreated();
 
-    @Select("SELECT * FROM notifications WHERE receiver_id = #{receiverId} AND status = 'CREATED'")
+    @Select("SELECT * FROM notifications WHERE receiver_id = #{receiverId} AND status = 'CREATED' ORDER BY created_at DESC")
     public List<Notification> findAllCreatedByReceiverId(long receiverId);
 
     @Insert("INSERT INTO notifications (type, content, sender_id, receiver_id, status, created_at) " +
